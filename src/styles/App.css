@@ -71,8 +71,9 @@
 .fence-element {
   position: absolute;
   z-index: var(--zFence);
-  border: 1px solid white;
-  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--colors-selected);
+  box-sizing: border-box;
+  background-color: rgba(63, 129, 255, 0.49);
 }
 
 //prevent SVG text selection
