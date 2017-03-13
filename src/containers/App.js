@@ -62,6 +62,22 @@ class App extends Component {
   }
 
   /**
+   * prevents default only if the target is not an extension
+   * @param evt
+   */
+  static preventDefaultOutsideExtension(evt) {
+    let element = evt.target;
+    while (element) {
+      if (element.classList && element.classList.contains('ExtensionView-content')) {
+        return;
+      }
+      element = element.parentNode;
+    }
+    // if here the element is not attached to an extension
+    evt.preventDefault();
+  }
+
+  /**
    * only allow the default context menu on text edit components
    * @param evt
    */
@@ -80,7 +96,7 @@ class App extends Component {
     document.addEventListener('keypress', App.rejectBackspace);
 
     // disable context menus since the app generates it own
-    document.addEventListener('contextmenu', App.preventDefaultIfEditable);
+    document.addEventListener('contextmenu', App.preventDefaultOutsideExtension);
 
     // disable all native drag and drop except on editable controls
     document.addEventListener('dragstart', App.preventDefaultIfEditable);
